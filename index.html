@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Legend App | Coming Soon to the App Store</title>
+  <meta name="description" content="The Legend iPhone app is in App Store review. This page will link to the App Store once the app is approved." />
+  <meta name="theme-color" content="#f0eee6" />
+  <link rel="canonical" href="https://app.legendmemory.ai/" />
+  <link rel="icon" href="assets/icon.png" type="image/png" />
+
+  <!--
+    ============================================================
+    APP STORE REDIRECT CONFIG
+    Leave APP_STORE_URL empty to show this holding page.
+    Set APP_STORE_URL to your App Store link (one line) to
+    auto-redirect visitors once the app is approved.
+    Example:
+      const APP_STORE_URL = "https://apps.apple.com/app/idXXXXXXXX";
+    ============================================================
+  -->
+  <script>
+    // ONE-LINE SWITCH: empty = holding page; set URL = redirect
+    const APP_STORE_URL = "";
+
+    if (APP_STORE_URL && APP_STORE_URL.trim() !== "") {
+      window.location.replace(APP_STORE_URL);
+      document.write(
+        '<meta http-equiv="refresh" content="0;url=' +
+          APP_STORE_URL.replace(/"/g, "") +
+          '" />'
+      );
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      /* Matched from legendmemory.ai Shopify color scheme */
+      --bg: #f0eee6;              /* color-base-background 240 238 230 */
+      --text: #171717;            /* color-base-text 23 23 23 */
+      --muted: rgba(23, 23, 23, 0.62);
+      --highlight: #e5d091;       /* color-base-highlight 229 208 145 */
+      --button: #150704;          /* color-base-button */
+      --button-text: #f8f8f6;     /* color-base-button-text */
+      --card: #ffffff;
+      --border: rgba(23, 23, 23, 0.1);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      font-family: Lato, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .wrap {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.25rem 2.75rem;
+      text-align: center;
+    }
+
+    .logo {
+      display: block;
+      height: 36px;
+      width: auto;
+      margin: 0 auto 1.75rem;
+    }
+
+    @media (min-width: 480px) {
+      .logo { height: 42px; }
+    }
+
+    h1 {
+      font-size: clamp(1.65rem, 5.2vw, 2.35rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      max-width: 22ch;
+      margin: 0 auto 0.85rem;
+    }
+
+    .lead {
+      max-width: 30rem;
+      font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+      color: var(--muted);
+      margin: 0 auto 1.75rem;
+    }
+
+    /* ---- Progress stepper (LTR) ----
+       Positions along the track (0% = left, 100% = right).
+       Change --current-pos to move the "In review" dot. */
+    .progress {
+      width: 100%;
+      max-width: 34rem;
+      margin: 0 auto 1.5rem;
+      padding: 1.25rem 1.25rem 0.75rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 28px rgba(21, 7, 4, 0.04);
+    }
+
+    .progress-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--highlight);
+      margin-bottom: 0.5rem;
+    }
+
+    .steps {
+      --current-pos: 82%;
+      --line-y: 40px;
+      position: relative;
+      list-style: none;
+      height: 92px;
+      margin: 0 14px;
+    }
+
+    /* Filled segment: Build submitted to In review */
+    .steps::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: var(--current-pos);
+      top: calc(var(--line-y) - 1px);
+      height: 2px;
+      background: var(--button);
+    }
+
+    /* Remaining segment: In review to Apple approval (dashed, unfilled) */
+    .steps::before {
+      content: "";
+      position: absolute;
+      left: var(--current-pos);
+      right: 0;
+      top: calc(var(--line-y) - 1px);
+      border-top: 2px dashed rgba(23, 23, 23, 0.25);
+    }
+
+    .step {
+      position: absolute;
+      top: 0;
+      width: 0;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .step.is-done { left: 0; }
+    .step.is-current { left: var(--current-pos); }
+    .step.is-final { left: 100%; }
+
+    .dot {
+      position: absolute;
+      left: 0;
+      top: var(--line-y);
+      transform: translate(-50%, -50%);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid rgba(23, 23, 23, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dot svg {
+      width: 11px;
+      height: 11px;
+      display: none;
+    }
+
+    .step.is-done .dot {
+      background: var(--button);
+      border-color: var(--button);
+    }
+
+    .step.is-done .dot svg {
+      display: block;
+      stroke: var(--button-text);
+    }
+
+    .step.is-current .dot {
+      background: var(--highlight);
+      border-color: var(--button);
+      box-shadow: 0 0 0 4px rgba(229, 208, 145, 0.35);
+    }
+
+    /* Final step (Apple approval): incomplete, visually distinct */
+    .step.is-final .dot {
+      width: 26px;
+      height: 26px;
+      background: var(--card);
+      border: 2px dashed rgba(23, 23, 23, 0.35);
+    }
+
+    .step.is-final .dot::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(23, 23, 23, 0.2);
+    }
+
+    .step-name {
+      position: absolute;
+      white-space: nowrap;
+      font-size: clamp(0.72rem, 2.2vw, 0.8rem);
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--text);
+    }
+
+    /* Build submitted: below, left-aligned to first dot */
+    .step.is-done .step-name {
+      top: calc(var(--line-y) + 18px);
+      left: -11px;
+      text-align: left;
+    }
+
+    /* In review: above its dot so it never collides with Apple approval */
+    .step.is-current .step-name {
+      bottom: calc(100% - var(--line-y) + 18px);
+      left: 0;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    /* Apple approval: below, right-aligned to last dot */
+    .step.is-final .step-name {
+      top: calc(var(--line-y) + 20px);
+      right: -13px;
+      text-align: right;
+    }
+
+    .step.is-final .step-name span {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    .note {
+      font-size: 0.88rem;
+      color: var(--muted);
+      max-width: 28rem;
+      margin: 0 auto;
+    }
+
+    .note a {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: rgba(23, 23, 23, 0.28);
+    }
+
+    .note a:hover {
+      text-decoration-color: var(--text);
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 20rem;
+      margin: 1.5rem auto 0;
+      padding: 0.95rem 1.75rem;
+      border-radius: 999px;
+      background: #150704;
+      color: #f8f8f6;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+
+    .cta:hover { opacity: 0.9; }
+    .cta:active { transform: scale(0.98); }
+    .cta:focus-visible { outline: 2px solid #e5d091; outline-offset: 3px; }
+
+    @media (min-width: 480px) {
+      .cta { width: auto; min-width: 13rem; }
+    }
+
+    footer {
+      margin-top: 2.25rem;
+      font-size: 0.78rem;
+      color: rgba(23, 23, 23, 0.45);
+    }
+
+    footer a {
+      color: rgba(23, 23, 23, 0.55);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <a href="https://legendmemory.ai" aria-label="Legend Memory">
+      <img
+        class="logo"
+        src="assets/logo.png"
+        width="200"
+        height="44"
+        alt="Legend"
+      />
+    </a>
+
+    <h1>The Legend iPhone app is coming soon</h1>
+    <p class="lead">
+      Our iPhone app is currently in App Store review. Once Apple approves it, this page will take you directly to the App Store.
+    </p>
+
+    <section class="progress" aria-label="App Store review progress">
+      <p class="progress-label">Review status</p>
+      <ol class="steps">
+        <li class="step is-done">
+          <span class="dot" aria-hidden="true">
+            <svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.5 6.2 L4.8 8.5 L9.5 3.5" />
+            </svg>
+          </span>
+          <span class="step-name">Build submitted</span>
+        </li>
+        <li class="step is-current" aria-current="step">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="step-name">In review</span>
+        </li>
+        <li class="step is-final">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="step-name">Apple approval<span>Awaiting decision</span></span>
+        </li>
+      </ol>
+    </section>
+
+    <p class="note">
+      The App Store link is not available yet. To learn more about Legend, visit
+      <a href="https://legendmemory.ai">legendmemory.ai</a>.
+    </p>
+
+    <a class="cta" href="https://legendmemory.ai/pages/app">See app features</a>
+
+    <footer>
+      <p>&copy; <span id="y"></span> Legend Memory &middot; <a href="https://legendmemory.ai">legendmemory.ai</a></p>
+    </footer>
+  </main>
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
