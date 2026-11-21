@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Legend App | Coming Soon to the App Store</title>
-  <meta name="description" content="The Legend iPhone app is in App Store review. This page will link to the App Store once the app is approved." />
+  <title>Legend App | Get it on the App Store</title>
+  <meta name="description" content="Download the Legend iPhone app on the App Store." />
   <meta name="theme-color" content="#f0eee6" />
   <link rel="canonical" href="https://app.legendmemory.ai/" />
   <link rel="icon" href="assets/icon.png" type="image/png" />
@@ -21,7 +21,7 @@
   -->
   <script>
     // ONE-LINE SWITCH: empty = holding page; set URL = redirect
-    const APP_STORE_URL = "";
+    const APP_STORE_URL = "https://apps.apple.com/us/app/legend-memory-ai-pendant/id6751127555";
 
     if (APP_STORE_URL && APP_STORE_URL.trim() !== "") {
       window.location.replace(APP_STORE_URL);
@@ -32,6 +32,9 @@
       );
     }
   </script>
+  <noscript>
+    <meta http-equiv="refresh" content="0;url=https://apps.apple.com/us/app/legend-memory-ai-pendant/id6751127555" />
+  </noscript>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -102,181 +105,6 @@
       margin: 0 auto 1.1rem;
     }
 
-    /* ---- Progress stepper (LTR) ----
-       Positions along the track (0% = left, 100% = right).
-       Change --current-pos to move the "In review" dot. */
-    .progress {
-      width: 100%;
-      max-width: 34rem;
-      margin: 0 auto 1rem;
-      padding: 1rem 1.25rem 0.5rem;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: 0 8px 28px rgba(21, 7, 4, 0.04);
-    }
-
-    .progress-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--highlight);
-      margin-bottom: 0.5rem;
-    }
-
-    .steps {
-      --current-pos: 82%;
-      --line-y: 40px;
-      position: relative;
-      list-style: none;
-      height: 92px;
-      margin: 0 14px;
-    }
-
-    /* Filled segment: Build submitted to In review */
-    .steps::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      width: var(--current-pos);
-      top: calc(var(--line-y) - 1px);
-      height: 2px;
-      background: var(--button);
-    }
-
-    /* Remaining segment: In review to Apple approval (dashed, unfilled) */
-    .steps::before {
-      content: "";
-      position: absolute;
-      left: var(--current-pos);
-      right: 0;
-      top: calc(var(--line-y) - 1px);
-      border-top: 2px dashed rgba(23, 23, 23, 0.25);
-    }
-
-    .step {
-      position: absolute;
-      top: 0;
-      width: 0;
-      height: 100%;
-      z-index: 1;
-    }
-
-    .step.is-done { left: 0; }
-    .step.is-current { left: var(--current-pos); }
-    .step.is-final { left: 100%; }
-
-    .dot {
-      position: absolute;
-      left: 0;
-      top: var(--line-y);
-      transform: translate(-50%, -50%);
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: var(--bg);
-      border: 2px solid rgba(23, 23, 23, 0.22);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .dot svg {
-      width: 11px;
-      height: 11px;
-      display: none;
-    }
-
-    .step.is-done .dot {
-      background: var(--button);
-      border-color: var(--button);
-    }
-
-    .step.is-done .dot svg {
-      display: block;
-      stroke: var(--button-text);
-    }
-
-    .step.is-current .dot {
-      background: var(--highlight);
-      border-color: var(--button);
-      box-shadow: 0 0 0 4px rgba(229, 208, 145, 0.35);
-    }
-
-    /* Final step (Apple approval): incomplete, visually distinct */
-    .step.is-final .dot {
-      width: 26px;
-      height: 26px;
-      background: var(--card);
-      border: 2px dashed rgba(23, 23, 23, 0.35);
-    }
-
-    .step.is-final .dot::after {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(23, 23, 23, 0.2);
-    }
-
-    .step-name {
-      position: absolute;
-      white-space: nowrap;
-      font-size: clamp(0.72rem, 2.2vw, 0.8rem);
-      font-weight: 700;
-      line-height: 1.25;
-      color: var(--text);
-    }
-
-    /* Build submitted: below, left-aligned to first dot */
-    .step.is-done .step-name {
-      top: calc(var(--line-y) + 18px);
-      left: -11px;
-      text-align: left;
-    }
-
-    /* In review: above its dot so it never collides with Apple approval */
-    .step.is-current .step-name {
-      bottom: calc(100% - var(--line-y) + 18px);
-      left: 0;
-      transform: translateX(-50%);
-      text-align: center;
-    }
-
-    /* Apple approval: below, right-aligned to last dot */
-    .step.is-final .step-name {
-      top: calc(var(--line-y) + 20px);
-      right: -13px;
-      text-align: right;
-    }
-
-    .step.is-final .step-name span {
-      display: block;
-      font-size: 0.65rem;
-      font-weight: 400;
-      color: var(--muted);
-      margin-top: 0.15rem;
-    }
-
-    .note {
-      font-size: 0.88rem;
-      color: var(--muted);
-      max-width: 28rem;
-      margin: 0 auto;
-    }
-
-    .note a {
-      color: var(--text);
-      text-decoration: underline;
-      text-underline-offset: 2px;
-      text-decoration-color: rgba(23, 23, 23, 0.28);
-    }
-
-    .note a:hover {
-      text-decoration-color: var(--text);
-    }
-
     .cta {
       display: inline-flex;
       align-items: center;
@@ -329,38 +157,15 @@
       />
     </a>
 
-    <h1>Legend for iPhone is coming soon</h1>
+    <h1>Get Legend for iPhone</h1>
     <p class="lead">
-      Now in App Store review. Once approved, this page will take you straight to the App Store.
+      Opening the App Store. If you are not redirected, use the link below.
     </p>
 
-    <section class="progress" aria-label="App Store review progress">
-      <p class="progress-label">Review status</p>
-      <ol class="steps">
-        <li class="step is-done">
-          <span class="dot" aria-hidden="true">
-            <svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2.5 6.2 L4.8 8.5 L9.5 3.5" />
-            </svg>
-          </span>
-          <span class="step-name">Build submitted</span>
-        </li>
-        <li class="step is-current" aria-current="step">
-          <span class="dot" aria-hidden="true"></span>
-          <span class="step-name">In review</span>
-        </li>
-        <li class="step is-final">
-          <span class="dot" aria-hidden="true"></span>
-          <span class="step-name">Apple approval<span>Awaiting decision</span></span>
-        </li>
-      </ol>
-    </section>
-
-    <p class="note">
-      Want to try Legend sooner? <a href="https://one.legendmemory.ai">Join the TestFlight beta</a>.
-    </p>
-
-    <a class="cta" href="https://legendmemory.ai/pages/app">See app features</a>
+    <a
+      class="cta"
+      href="https://apps.apple.com/us/app/legend-memory-ai-pendant/id6751127555"
+    >Open in the App Store</a>
 
     <footer>
       <p>&copy; <span id="y"></span> Legend Memory &middot; <a href="https://legendmemory.ai">legendmemory.ai</a></p>
